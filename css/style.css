@@ -69,7 +69,7 @@ body {
 
 .input-field {
     width: 100%;
-    padding: 0.3rem;
+    padding: 0.5rem;
     box-sizing: border-box;
     border-radius: 0.5rem;
     background-color: var(--text-color);
@@ -82,6 +82,21 @@ body {
 .input-field:focus {
     outline: none;
     border-color: var(--background-color);
+}
+
+/*webkit browsers (Chrome, Safari)*/
+.input-field::-webkit-input-placeholder { 
+    color: var(--background-color);
+}
+
+/*Firefox*/
+.input-field::-moz-placeholder { 
+    color: var(--background-color);
+}
+
+/*Explorer*/
+.input-field:-ms-input-placeholder { 
+    color: var(--background-color);
 }
 
 .range-container {
