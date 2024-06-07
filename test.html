@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    
+</head>
+<body>
+    <button style="padding: 2rem; border-radius: 1rem;" onclick="generatePassword()">Generate Password</button>
+    <input type="text" id="input">
+    <input type="text" id="output"> 
+    <input type="range" id="length" min="8" max="64" value="8">
+    <label for="length">Password Length</label>
+    <script src="characterMap.js" type="module"></script>
+    <script src="lfsr.js" type="module"></script>
+    <script src="generatePassword.js" type="module"></script>
+</body>
+</html>
