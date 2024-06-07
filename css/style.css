@@ -1,0 +1,197 @@
+:root {
+    --background-color: rgb(58, 27, 35);
+    --text-color: rgb(153, 127, 43);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --range-track-color: rgb(153, 127, 43);
+    --range-thumb-color: rgb(58, 27, 35);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size:x-large;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: var(--background-color);
+    box-shadow: 0 0 1rem var(--shadow-color);
+    padding: 2rem;
+    width: 320px;
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 1rem;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn {
+    background-color: var(--text-color);
+    color: var(--background-color);
+    border: 2px solid var(--text-color);
+    padding: 1rem 2rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.btn:hover {
+    border: 2px solid var(--text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.input-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.label {
+    display: block;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    text-align: left;
+    color: var(--text-color);
+    font-weight: 900;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    background-color: var(--text-color);
+    box-shadow: 0 0 1rem var(--shadow-color);
+    border-color: var(--text-color);
+    color: var(--background-color);
+    font-weight: 600;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--background-color);
+}
+
+/*webkit browsers (Chrome, Safari)*/
+.input-field::-webkit-input-placeholder { 
+    color: var(--background-color);
+}
+
+/*Firefox*/
+.input-field::-moz-placeholder { 
+    color: var(--background-color);
+}
+
+/*Explorer*/
+.input-field:-ms-input-placeholder { 
+    color: var(--background-color);
+}
+
+.password-content {
+    display: flex;
+    align-items: center;
+}
+
+.password-contet .input-field {
+    flex: 1;  
+}
+
+.copy-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.copy-message {
+    color: var(--background-color);
+    background-color: var(--text-color);
+    margin-top: 1rem;
+    border-radius: 1rem;
+    font-size: large;
+}
+
+.range-container {
+    display: flex;
+    align-items: center;
+}
+
+.range-value {
+    margin-left: 0.5rem;
+    width: 2rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+    border-radius: 1rem;
+    background-color: var(--background-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.range-value:focus {
+    width: 3rem;
+    border-color: var(--text-color);
+    box-shadow: 0 0 5px var(--focus-color);
+    outline: none;
+}
+
+.range-input {
+    width: 100%;
+    -webkit-appearance: none; 
+    appearance: none; 
+    height: 1rem;
+    background: var(--range-track-color);
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+/*webkit browsers (Chrome, Safari)*/
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none; 
+    width: 1.2rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--text-color);
+    background: var(--range-thumb-color);
+    cursor: pointer;
+    box-shadow: 0 0 1rem var(--shadow-color);
+}
+
+/*Firefox*/
+.range-input::-moz-range-thumb {
+    -webkit-appearance: none; 
+    appearance: none; 
+    width: 1.2rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--text-color);
+    background: var(--range-thumb-color);
+    cursor: pointer;
+    box-shadow: 0 0 1rem var(--shadow-color);
+}
+
+/*Explorer*/
+.range-input::-ms-thumb {
+    -webkit-appearance: none; 
+    appearance: none; 
+    width: 1.2rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--text-color);
+    background: var(--range-thumb-color);
+    cursor: pointer;
+    box-shadow: 0 0 1rem var(--shadow-color);
+}

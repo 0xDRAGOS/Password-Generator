@@ -17,6 +17,12 @@ export const primitivePolynomials = {
         3,
         23
     ],
+    "30": [
+        0,
+        3,
+        5,
+        30
+    ],
     "31": [
         0,
         1,
