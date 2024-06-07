@@ -1,4 +1,5 @@
-import { generatePassword } from "./generatePassword.js";
+import { generatePassword } from "./utils/generatePassword.js";
+import { copyToClipboard } from "./utils/copyToClipboard.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const generatePasswordButton = document.getElementById('generatePasswordButton');
@@ -6,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const output = document.getElementById('output');
     const length = document.getElementById('length');
     const rangeValue = document.getElementById('rangeValue');
+    const copyIcon = document.getElementById('copyIcon');
 
     rangeValue.textContent = length.value;
 
@@ -13,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = generatePassword(input.value, length.value); 
         console.log('pass: ', password);
         output.value = password;
+    });
+
+    copyIcon.addEventListener('click', () => {
+        copyToClipboard();
     });
 
     length.addEventListener('input', () => {

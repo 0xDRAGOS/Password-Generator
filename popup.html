@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/characterMap.js" type="module"></script>
-    <script src="js/lfsr.js" type="module"></script>
-    <script src="js/generatePassword.js" type="module"></script>
+    <script src="js/utils/characterMap.js" type="module"></script>
+    <script src="js/utils/lfsr.js" type="module"></script>
+    <script src="js/utils/generatePassword.js" type="module"></script>
+    <script src="js/utils/copyToClipboard.js" type="module"></script>
     <script src="js/main.js" type="module" defer></script>
 </head>
 
@@ -18,13 +19,19 @@
             <img src="img/logo.png" alt="LOGO" class="logo">
         </header>
         <main class="main-content">
-            <button id="generatePasswordButton" class="btn">Generate Password</button>
             <div class="input-group">
                 <label for="input" class="label">Input:</label>
                 <input type="text" id="input" class="input-field" placeholder="Enter the input text">
-
+                
                 <label for="output" class="label">Password: </label>
-                <input type="text" id="output" class="input-field" placeholder="The generated password will appear here">
+                <div class="password-content">
+                    <input type="text" id="output" class="input-field"
+                        placeholder="The generated password will appear here">
+                    <img src="img/copy-icon.png" id="copyIcon" alt="Copy to clipboard" class="copy-icon">
+                    
+                </div>
+
+                <div id="copyMessage" class="copy-message"></div>
 
                 <label for="length" class="label">Length:</label>
                 <div class="range-container">
@@ -32,6 +39,7 @@
                     <input type="number" id="rangeValue" class="range-value" min="8" max="64" value="8">
                 </div>
             </div>
+            <button id="generatePasswordButton" class="btn">Generate Password</button>
         </main>
     </div>
 </body>

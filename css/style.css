@@ -22,7 +22,7 @@ body {
     background-color: var(--background-color);
     box-shadow: 0 0 1rem var(--shadow-color);
     padding: 2rem;
-    width: 300px;
+    width: 320px;
     text-align: center;
 }
 
@@ -97,6 +97,30 @@ body {
 /*Explorer*/
 .input-field:-ms-input-placeholder { 
     color: var(--background-color);
+}
+
+.password-content {
+    display: flex;
+    align-items: center;
+}
+
+.password-contet .input-field {
+    flex: 1;  
+}
+
+.copy-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.copy-message {
+    color: var(--background-color);
+    background-color: var(--text-color);
+    margin-top: 1rem;
+    border-radius: 1rem;
+    font-size: large;
 }
 
 .range-container {
