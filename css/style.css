@@ -59,6 +59,14 @@ body {
     align-items: center;
 }
 
+span {
+    font-size: 60%;
+    display: block;
+    color: var(--text-color);
+    font-weight: 900;
+    margin-right: 0.5rem;
+}
+
 .btn {
     background-color: var(--text-color);
     color: var(--background-color);
@@ -73,6 +81,7 @@ body {
 .btn:hover {
     border: 2px solid var(--text-color);
     background-color: var(--background-color);
+    box-shadow: 0 0 5px var(--text-color);
     color: var(--text-color);
 }
 
@@ -90,6 +99,10 @@ body {
     font-weight: 900;
 }
 
+#settings-page .label {
+    font-size: 85%;
+}
+
 .input-field {
     width: 100%;
     padding: 0.5rem;
@@ -104,7 +117,8 @@ body {
 
 .input-field:focus {
     outline: none;
-    border-color: var(--background-color);
+    border-color: var(--text-color);
+    box-shadow: 0 0 5px var(--text-color)
 }
 
 /*webkit browsers (Chrome, Safari)*/
@@ -122,9 +136,14 @@ body {
     color: var(--background-color);
 }
 
-.password-content {
+.password-contet {
+    display: block;
+}
+
+.password-item {
     display: flex;
     align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 .password-contet .input-field {
@@ -138,7 +157,8 @@ body {
     margin-left: 1rem;
 }
 
-.copy-message, .save-message {
+.copy-message, .save-message,
+.generate-message {
     color: var(--background-color);
     background-color: var(--text-color);
     margin-top: 1rem;
@@ -147,19 +167,32 @@ body {
 }
 
 .range-container,
-.alphanumeric-range-container, 
-.numeric-range-container, 
-.special-range-container,
+.min-alphanumeric-range-container,
+.max-alphanumeric-range-container, 
+.min-numeric-range-container,
+.max-numeric-range-container, 
+.min-special-range-container,
+.max-special-range-container {
+    display: flex;
+}
+
+.min-alphanumeric-range-container,
+.min-numeric-range-container,
+.min-special-range-container {
+    margin-bottom: 1rem;
+}
+
 .separator-checkbox-container,
 .separator-interval-container, 
 .password-count-container {
     display: flex;
     align-items: center;
+    justify-content: space-between
 }
 
 input[type="number"] {
     margin-left: 0.5rem;
-    width: 2rem;
+    width: 3rem;
     text-align: center;
     font-weight: 600;
     color: var(--text-color);
@@ -171,7 +204,7 @@ input[type="number"] {
 input[type="number"]:focus {
     width: 3rem;
     border-color: var(--text-color);
-    box-shadow: 0 0 5px var(--focus-color);
+    box-shadow: 0 0 5px var(--text-color);
     outline: none;
 }
 
@@ -224,7 +257,7 @@ input[type="range"]::-ms-thumb {
     box-shadow: 0 0 1rem var(--shadow-color);
 }
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;
     margin-left: 1rem;
@@ -244,4 +277,32 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:focus {
     outline: none;
     box-shadow: 0 0 5px var(--text-color);
+} */
+
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--text-color);
+    text-align: center;
+    margin-left: 1rem;
+    width: 10rem;
+    height: 2.4rem;
+    border: 2px solid var(--text-color);
+    border-radius: 0.3rem;
+    background-color: var(--background-color);
+    cursor: pointer;
+    box-shadow: 0 0 1rem var(--shadow-color);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--text-color);
+}
+
+select option {
+    font-size: 1.2rem; 
+    font-weight: 900;
 }

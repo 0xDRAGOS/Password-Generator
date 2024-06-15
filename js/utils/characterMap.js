@@ -1,6 +1,5 @@
 export const characterMap = {
-    uppercaseLetters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    lowercaseLetters: 'abcdefghijklmnopqrstuvwxyz',
-    numbers: '0123456789',
-    symbols: '~`!@#$%^&*()_-+={[}]|:;"\'<,>.?/'
+    alphanumeric: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    numeric: '0123456789',
+    special: '`!@#$%^&*()_+={[}]|:;"\'<,>.?'
 };
