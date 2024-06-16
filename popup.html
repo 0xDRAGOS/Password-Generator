@@ -17,29 +17,118 @@
     <div class="container">
         <header class="header">
             <img src="img/logo.png" alt="LOGO" class="logo">
+            <div class="navbar">
+                <img src="img/home-icon.png" id="home-icon" alt="Home Page" class="home-icon">
+                <img src="img/history-icon.png" id="history-icon" alt="Password History" class="history-icon">
+                <img src="img/settings-icon.png" id="settings-icon" alt="Settings Page" class="settings-icon">
+            </div>
         </header>
         <main class="main-content">
-            <div class="input-group">
-                <label for="input" class="label">Input:</label>
-                <input type="text" id="input" class="input-field" placeholder="Enter the input text">
-                
-                <label for="output" class="label">Password: </label>
-                <div class="password-content">
-                    <input type="text" id="output" class="input-field"
-                        placeholder="The generated password will appear here">
-                    <img src="img/copy-icon.png" id="copyIcon" alt="Copy to clipboard" class="copy-icon">
-                    
+            <div id="home-page">
+                <div class="input-group">
+                    <label for="input" class="label">Input:</label>
+                    <input type="text" id="input" class="input-field" placeholder="Enter the input text">
+
+                    <label for="output" class="label">Password: </label>
+                    <div id="password-content" class="password-content">
+                        <div class="password-item">
+                            <input type="text" id="output" class="input-field" placeholder="Generated password">
+                            <img src="img/copy-icon.png" id="copy-icon" alt="Copy to clipboard" class="copy-icon">
+                            <img src="img/save-icon.png" id="save-icon" alt="Save password" class="save-icon">
+                        </div>
+                    </div>
+
+                    <div id="copy-message" class="copy-message"></div>
+                    <div id="save-message" class="save-message"></div>
+
+                    <label for="length" class="label">Length:</label>
+                    <div class="range-container">
+                        <input type="range" id="length" class="range-input" min="15" max="256" value="15">
+                        <input type="number" id="rangeValue" class="range-value" min="15" max="256" value="15">
+                    </div>
+                </div>
+                <button id="generatePasswordButton" class="btn">Generate Password</button>
+                <div id="generate-message" class="generate-message"></div>
+            </div>
+
+            <div id="history-page">
+
+            </div>
+
+            <div id="settings-page">
+                <label for="alphanumeric-range-input" class="label">Alphanumeric characters:</label>
+                <div class="min-alphanumeric-range-container">
+                    <span>Min</span>
+                    <input type="range" id="min-alphanumeric-range-input" class="min-alphanumeric-range-input" min="4"
+                        max="56" value="4">
+                    <input type="number" id="min-alphanumeric-range-value-input" class="min-alphanumeric-range-value"
+                        min="4" max="56" value="4">
                 </div>
 
-                <div id="copyMessage" class="copy-message"></div>
+                <div class="max-alphanumeric-range-container">
+                    <span>Max</span>
+                    <input type="range" id="max-alphanumeric-range-input" class="max-alphanumeric-range-input" min="5"
+                        max="56" value="17">
+                    <input type="number" id="max-alphanumeric-range-value-input" class="max-alphanumeric-range-value"
+                        min="5" max="56" value="17">
+                </div>
 
-                <label for="length" class="label">Length:</label>
-                <div class="range-container">
-                    <input type="range" id="length" class="range-input" min="8" max="64" value="8">
-                    <input type="number" id="rangeValue" class="range-value" min="8" max="64" value="8">
+                <label for="numeric-range-container" class="label">Numeric characters:</label>
+                <div class="min-numeric-range-container">
+                    <span>Min</span>
+                    <input type="range" id="min-numeric-range-input" class="min-numeric-range-input" min="4"
+                        max="56" value="4">
+                    <input type="number" id="min-numeric-range-value-input" class="min-numeric-range-value"
+                        min="4" max="56" value="4">
+                </div>
+
+                <div class="max-numeric-range-container">
+                    <span>Max</span>
+                    <input type="range" id="max-numeric-range-input" class="max-numeric-range-input" min="5"
+                        max="56" value="17">
+                    <input type="number" id="max-numeric-range-value-input" class="max-numeric-range-value"
+                        min="5" max="56" value="17">
+                </div>
+
+                <label for="special-range-input" class="label">Special characters:</label>
+                <div class="min-special-range-container">
+                    <span>Min</span>
+                    <input type="range" id="min-special-range-input" class="min-special-range-input" min="4"
+                        max="56" value="4">
+                    <input type="number" id="min-special-range-value-input" class="min-special-range-value"
+                        min="4" max="56" value="4">
+                </div>
+
+                <div class="max-special-range-container">
+                    <span>Max</span>
+                    <input type="range" id="max-special-range-input" class="max-special-range-input" min="5"
+                        max="56" value="17">
+                    <input type="number" id="max-special-range-value-input" class="max-special-range-value"
+                        min="5" max="56" value="17">
+                </div>
+
+                <div class="separator-checkbox-container">
+                    <label for="use-separator" class="label">Separator:</label>
+                    <!-- <input type="checkbox" id="use-separator" class="separator-checkbox"> -->
+                     <select id="separator" class="separator">
+                        <option value="-">-</option>
+                        <option value="/">/</option>
+                        <option value="~">~</option>
+                     </select>
+                </div>
+
+                <div class="separator-interval-container">
+                    <label for="separator-interval" class="label">Separator Interval:</label>
+                    <input type="number" id="separator-interval" class="separator-interval-input" min="1" max="4"
+                        value="4">
+                </div>
+
+                <div class="password-count-container">
+                    <label for="passwordCount" class="label">Total Passwords:</label>
+                    <input type="number" id="password-count-input" class="password-count-input" min="1" max="3"
+                        value="1">
                 </div>
             </div>
-            <button id="generatePasswordButton" class="btn">Generate Password</button>
         </main>
     </div>
 </body>

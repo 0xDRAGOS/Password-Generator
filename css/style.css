@@ -15,7 +15,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .container {
@@ -27,13 +26,45 @@ body {
 }
 
 .header {
+    display: block;
     margin-bottom: 1rem;
 }
 
-.main-content {
+.navbar {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 330px;
+}
+
+.history-icon, .settings-icon, .home-icon{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.home-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.settings-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+span {
+    font-size: 60%;
+    display: block;
+    color: var(--text-color);
+    font-weight: 900;
+    margin-right: 0.5rem;
 }
 
 .btn {
@@ -50,6 +81,7 @@ body {
 .btn:hover {
     border: 2px solid var(--text-color);
     background-color: var(--background-color);
+    box-shadow: 0 0 5px var(--text-color);
     color: var(--text-color);
 }
 
@@ -67,6 +99,10 @@ body {
     font-weight: 900;
 }
 
+#settings-page .label {
+    font-size: 85%;
+}
+
 .input-field {
     width: 100%;
     padding: 0.5rem;
@@ -81,7 +117,8 @@ body {
 
 .input-field:focus {
     outline: none;
-    border-color: var(--background-color);
+    border-color: var(--text-color);
+    box-shadow: 0 0 5px var(--text-color)
 }
 
 /*webkit browsers (Chrome, Safari)*/
@@ -99,23 +136,29 @@ body {
     color: var(--background-color);
 }
 
-.password-content {
+.password-contet {
+    display: block;
+}
+
+.password-item {
     display: flex;
     align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 .password-contet .input-field {
     flex: 1;  
 }
 
-.copy-icon {
+.copy-icon, .save-icon {
     width: 24px;
     height: 24px;
     cursor: pointer;
     margin-left: 1rem;
 }
 
-.copy-message {
+.copy-message, .save-message,
+.generate-message {
     color: var(--background-color);
     background-color: var(--text-color);
     margin-top: 1rem;
@@ -123,31 +166,49 @@ body {
     font-size: large;
 }
 
-.range-container {
+.range-container,
+.min-alphanumeric-range-container,
+.max-alphanumeric-range-container, 
+.min-numeric-range-container,
+.max-numeric-range-container, 
+.min-special-range-container,
+.max-special-range-container {
     display: flex;
-    align-items: center;
 }
 
-.range-value {
+.min-alphanumeric-range-container,
+.min-numeric-range-container,
+.min-special-range-container {
+    margin-bottom: 1rem;
+}
+
+.separator-checkbox-container,
+.separator-interval-container, 
+.password-count-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+input[type="number"] {
     margin-left: 0.5rem;
-    width: 2rem;
+    width: 3rem;
     text-align: center;
     font-weight: 600;
     color: var(--text-color);
     border: 2px solid var(--text-color);
     border-radius: 1rem;
     background-color: var(--background-color);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.range-value:focus {
+input[type="number"]:focus {
     width: 3rem;
     border-color: var(--text-color);
-    box-shadow: 0 0 5px var(--focus-color);
+    box-shadow: 0 0 5px var(--text-color);
     outline: none;
 }
 
-.range-input {
+input[type="range"] {
     width: 100%;
     -webkit-appearance: none; 
     appearance: none; 
@@ -158,7 +219,7 @@ body {
 }
 
 /*webkit browsers (Chrome, Safari)*/
-.range-input::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; 
     appearance: none; 
     width: 1.2rem;
@@ -171,7 +232,7 @@ body {
 }
 
 /*Firefox*/
-.range-input::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
     -webkit-appearance: none; 
     appearance: none; 
     width: 1.2rem;
@@ -184,7 +245,7 @@ body {
 }
 
 /*Explorer*/
-.range-input::-ms-thumb {
+input[type="range"]::-ms-thumb {
     -webkit-appearance: none; 
     appearance: none; 
     width: 1.2rem;
@@ -194,4 +255,54 @@ body {
     background: var(--range-thumb-color);
     cursor: pointer;
     box-shadow: 0 0 1rem var(--shadow-color);
+}
+
+/* input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-left: 1rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid var(--text-color);
+    border-radius: 0.3rem;
+    background-color: var(--background-color);
+    cursor: pointer;
+    box-shadow: 0 0 1rem var(--shadow-color);
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--text-color);
+}
+
+input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--text-color);
+} */
+
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--text-color);
+    text-align: center;
+    margin-left: 1rem;
+    width: 10rem;
+    height: 2.4rem;
+    border: 2px solid var(--text-color);
+    border-radius: 0.3rem;
+    background-color: var(--background-color);
+    cursor: pointer;
+    box-shadow: 0 0 1rem var(--shadow-color);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--text-color);
+}
+
+select option {
+    font-size: 1.2rem; 
+    font-weight: 900;
 }

@@ -1,11 +1,12 @@
 import { primitivePolynomials } from "./primitivePolynomialsMap.js";
 
-export function LFSR(seed, length) {
-    let state = stringToBinary(seed);
+export function LFSR(seed) {
+    let binarySeed = stringToBinary(seed);;
+    let state = binarySeed;
     let stateLength = Math.ceil(Math.log2(state + 1));
     let output = [];
     let chunk = '';
-
+    
     if (!primitivePolynomials[stateLength]) {
         throw new Error(`No primitive polynomial defined for length ${stateLength}`);
     }
@@ -16,12 +17,12 @@ export function LFSR(seed, length) {
         let newbit = feedbackBits.reduce((acc, bitPos) => acc ^ ((state >> bitPos) & 1), 0);
         state = (state >> 1) | (newbit << (stateLength - 1));
         chunk += (state & 1).toString();
-
+        
         if (chunk.length % 8 == 0) {
             output.push(chunk.padEnd(8, '0'));
             chunk = '';
         }
-    } while (state != seed && output.length < length && state)
+    } while (state != seed && output.length < 512 && state)
 
     return output;
 }
