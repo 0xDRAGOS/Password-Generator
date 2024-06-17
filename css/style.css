@@ -2,13 +2,13 @@
     --background-color: rgb(58, 27, 35);
     --text-color: rgb(153, 127, 43);
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --range-track-color: rgb(153, 127, 43);
-    --range-thumb-color: rgb(58, 27, 35);
+    --track-color: rgb(153, 127, 43);
+    --thumb-color: rgb(58, 27, 35);
 }
 
 body {
     font-family: Arial, sans-serif;
-    font-size:x-large;
+    font-size: x-large;
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@ body {
     background-color: var(--background-color);
     box-shadow: 0 0 1rem var(--shadow-color);
     padding: 2rem;
-    width: 320px;
+    width: 340px;
     text-align: center;
 }
 
@@ -40,23 +40,44 @@ body {
     width: 330px;
 }
 
-.history-icon, .settings-icon, .home-icon{
+.history-icon,
+.settings-icon,
+.home-icon {
     width: 24px;
     height: 24px;
     cursor: pointer;
     margin-left: 1rem;
 }
 
-.home-page {
+.home-page,
+.settings-page,
+.history-page {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.settings-page {
+.passwords-list {
+    border: 2px solid var(--text-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+    color: var(--text-color);
+    font-weight: 900;
+}
+
+.password-history-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+    border: 2px solid var(--text-color);
+}
+
+.password-history-icons {
+    margin-top: 0.5rem;
 }
 
 span {
@@ -122,17 +143,17 @@ span {
 }
 
 /*webkit browsers (Chrome, Safari)*/
-.input-field::-webkit-input-placeholder { 
+.input-field::-webkit-input-placeholder {
     color: var(--background-color);
 }
 
 /*Firefox*/
-.input-field::-moz-placeholder { 
+.input-field::-moz-placeholder {
     color: var(--background-color);
 }
 
 /*Explorer*/
-.input-field:-ms-input-placeholder { 
+.input-field:-ms-input-placeholder {
     color: var(--background-color);
 }
 
@@ -147,17 +168,30 @@ span {
 }
 
 .password-contet .input-field {
-    flex: 1;  
+    flex: 1;
 }
 
-.copy-icon, .save-icon {
+.copy-icon,
+.save-icon {
     width: 24px;
     height: 24px;
     cursor: pointer;
     margin-left: 1rem;
 }
 
-.copy-message, .save-message,
+.delete-icon,
+.copy-icon-history {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.copy-icon-history {
+    margin-right: 0.5rem;
+}
+
+.copy-message,
+.save-message,
 .generate-message {
     color: var(--background-color);
     background-color: var(--text-color);
@@ -168,9 +202,9 @@ span {
 
 .range-container,
 .min-alphanumeric-range-container,
-.max-alphanumeric-range-container, 
+.max-alphanumeric-range-container,
 .min-numeric-range-container,
-.max-numeric-range-container, 
+.max-numeric-range-container,
 .min-special-range-container,
 .max-special-range-container {
     display: flex;
@@ -183,7 +217,7 @@ span {
 }
 
 .separator-checkbox-container,
-.separator-interval-container, 
+.separator-interval-container,
 .password-count-container {
     display: flex;
     align-items: center;
@@ -210,74 +244,52 @@ input[type="number"]:focus {
 
 input[type="range"] {
     width: 100%;
-    -webkit-appearance: none; 
-    appearance: none; 
+    -webkit-appearance: none;
+    appearance: none;
     height: 1rem;
-    background: var(--range-track-color);
+    background: var(--track-color);
     border-radius: 1rem;
     cursor: pointer;
 }
 
 /*webkit browsers (Chrome, Safari)*/
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; 
-    appearance: none; 
+    -webkit-appearance: none;
+    appearance: none;
     width: 1.2rem;
     height: 1.5rem;
     border-radius: 1rem;
     border: 2px solid var(--text-color);
-    background: var(--range-thumb-color);
+    background: var(--thumb-color);
     cursor: pointer;
     box-shadow: 0 0 1rem var(--shadow-color);
 }
 
 /*Firefox*/
 input[type="range"]::-moz-range-thumb {
-    -webkit-appearance: none; 
-    appearance: none; 
+    -webkit-appearance: none;
+    appearance: none;
     width: 1.2rem;
     height: 1.5rem;
     border-radius: 1rem;
     border: 2px solid var(--text-color);
-    background: var(--range-thumb-color);
+    background: var(--thumb-color);
     cursor: pointer;
     box-shadow: 0 0 1rem var(--shadow-color);
 }
 
 /*Explorer*/
 input[type="range"]::-ms-thumb {
-    -webkit-appearance: none; 
-    appearance: none; 
+    -webkit-appearance: none;
+    appearance: none;
     width: 1.2rem;
     height: 1.5rem;
     border-radius: 1rem;
     border: 2px solid var(--text-color);
-    background: var(--range-thumb-color);
+    background: var(--thumb-color);
     cursor: pointer;
     box-shadow: 0 0 1rem var(--shadow-color);
 }
-
-/* input[type="checkbox"] {
-    -webkit-appearance: none;
-    appearance: none;
-    margin-left: 1rem;
-    width: 1.2rem;
-    height: 1.2rem;
-    border: 2px solid var(--text-color);
-    border-radius: 0.3rem;
-    background-color: var(--background-color);
-    cursor: pointer;
-    box-shadow: 0 0 1rem var(--shadow-color);
-}
-
-input[type="checkbox"]:checked {
-    background-color: var(--text-color);
-}
-
-input[type="checkbox"]:focus {
-    outline: none;
-    box-shadow: 0 0 5px var(--text-color);
-} */
 
 select {
     -webkit-appearance: none;
@@ -303,6 +315,20 @@ select:focus {
 }
 
 select option {
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
     font-weight: 900;
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--thumb-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--text-color);
+    border-radius: 1rem;
 }

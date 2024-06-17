@@ -2,8 +2,10 @@ export function copyToClipboard(outputElement) {
     const copyMessage = document.getElementById('copy-message');
 
     if (outputElement) {
-        if (outputElement.value !== '') {
-            navigator.clipboard.writeText(outputElement.value).then(() => {
+        if (outputElement.value !== '' || outputElement.textContent !== '') {
+            const textToCopy = (outputElement.value != null) ? outputElement.value : outputElement.textContent;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
                 copyMessage.textContent = "Password was successfully copied to clipboard.";
             }).catch(err => {
                 copyMessage.textContent = "Could not copy the password to clipboard.";
@@ -14,4 +16,8 @@ export function copyToClipboard(outputElement) {
     } else {
         console.error("Could not find output or copyMessage element.")
     }
+
+    setTimeout(() => {
+        copyMessage.textContent = '';
+    }, 2000);
 }

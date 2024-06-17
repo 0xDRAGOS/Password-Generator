@@ -1,5 +1,6 @@
 import { generatePassword } from "./utils/generatePassword.js";
 import { copyToClipboard } from "./utils/copyToClipboard.js";
+import { deleteAllPasswords, displayPasswords, savePassword } from "./utils/passwordUtils.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -16,28 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     historyPage.style.display = 'none';
     settingsPage.style.display = 'none';
 
+    //home page
     homeIcon.addEventListener('click', () => {
         currentPage.style.display = 'none';
         homePage.style.display = 'block';
         currentPage = homePage;
     });
 
-    historyIcon.addEventListener('click', () => {
-        currentPage.style.display = 'none';
-        historyPage.style.display = 'block';
-        currentPage = historyPage;
-    });
-
-    settingsIcon.addEventListener('click', () => {
-        currentPage.style.display = 'none';
-        settingsPage.style.display = 'block';
-        currentPage = settingsPage;
-    });
-
-    //home page
     const generatePasswordButton = document.getElementById('generatePasswordButton');
     const input = document.getElementById('input');
-    const output = document.getElementById('output');
     const length = document.getElementById('length');
     const rangeValue = document.getElementById('rangeValue');
 
@@ -49,7 +37,27 @@ document.addEventListener('DOMContentLoaded', () => {
         length.value = rangeValue.value;
     });
 
+    //history page
+    historyIcon.addEventListener('click', () => {
+        currentPage.style.display = 'none';
+        historyPage.style.display = 'block';
+        currentPage = historyPage;
+
+        displayPasswords();
+    });
+
+    const deleteAllPasswordsButton = document.getElementById('deleteAllPasswordsButton');
+    deleteAllPasswordsButton.addEventListener('click', () => {
+        deleteAllPasswords();
+    });
+
     //settings page
+    settingsIcon.addEventListener('click', () => {
+        currentPage.style.display = 'none';
+        settingsPage.style.display = 'block';
+        currentPage = settingsPage;
+    });
+
     const minAlphanumericRange = document.getElementById('min-alphanumeric-range-input');
     const minAlphanumericValue = document.getElementById('min-alphanumeric-range-value-input');
     const maxAlphanumericRange = document.getElementById('max-alphanumeric-range-input');
@@ -63,19 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxSpecialRange = document.getElementById('max-special-range-input');
     const maxSpecialValue = document.getElementById('max-special-range-value-input');
     const separatorInterval = document.getElementById('separator-interval');
-    
+
     const updateMinPasswordLength = () => {
         let newMinLength = parseInt(minAlphanumericValue.value) + parseInt(minNumericValue.value) + parseInt(minSpecialValue.value);
         newMinLength += Math.ceil(newMinLength / separatorInterval.value);
-        
+
         length.min = newMinLength;
         rangeValue.min = newMinLength;
     }
-    
+
     const updateMaxPasswordLength = () => {
         let newMaxLength = parseInt(maxAlphanumericValue.value) + parseInt(maxNumericValue.value) + parseInt(maxSpecialValue.value);
         newMaxLength += Math.ceil(newMaxLength / separatorInterval.value);
-        
+
         length.max = newMaxLength;
         length.max = newMaxLength;
     }
@@ -109,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (parseInt(maxSpecialValue.value) < parseInt(minSpecialValue.value)) {
             maxSpecialValue.value = minSpecialValue.value;
             maxSpecialRange.value = minSpecialValue.value;
-       }
+        }
     }
 
     minAlphanumericRange.addEventListener('input', () => {
@@ -135,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMaxPasswordLength();
         validateAndResetRanges();
     });
-    
+
     minNumericRange.addEventListener('input', () => {
         minNumericValue.value = minNumericRange.value;
         updateMinPasswordLength();
@@ -187,56 +195,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const separatorChar = document.getElementById('separator');
     const totalPasswords = document.getElementById('password-count-input');
 
+    var currentWebAddress = '';
+    chrome.tabs.query({ active: true, currentWindow: true}, function(tabs) {
+        let url = new URL(tabs[0].url);
+        currentWebAddress = url.origin;
+    });
+
     generatePasswordButton.addEventListener('click', () => {
         const inputValue = input.value.trim();
         const generateMessage = document.getElementById('generate-message');
         generateMessage.innerHTML = '';
-        
-        if(!inputValue) {
+
+        if (!inputValue) {
             generateMessage.textContent = 'Input is empty.';
-            return;
-        }
+            setTimeout(() => {
+                generateMessage.textContent = '';
+            }, 2000);
+        } else {
+            const passwords = generatePassword(inputValue, length.value, minAlphanumericValue.value, maxAlphanumericValue.value, minNumericValue.value, maxNumericValue.value, minSpecialValue.value, maxSpecialValue.value, separatorChar.value, separatorInterval.value, totalPasswords.value);
 
-        //de adaugat constrangeri pt min > max & max < min
+            let passwordContent = document.getElementById('password-content');
+            if (passwordContent) {
+                passwordContent.innerHTML = '';
 
-        const passwords = generatePassword(inputValue, length.value, minAlphanumericValue.value, maxAlphanumericValue.value, minNumericValue.value, maxNumericValue.value, minSpecialValue.value, maxSpecialValue.value, separatorChar.value, separatorInterval.value, totalPasswords.value);
+                passwords.forEach(password => {
+                    const passwordDiv = document.createElement('div');
+                    passwordDiv.classList.add('password-item');
 
-        let passwordContent = document.getElementById('password-content');
-        if (passwordContent) {
-            passwordContent.innerHTML = '';
+                    const passwordInput = document.createElement('input');
+                    passwordInput.setAttribute('id', 'pass');
+                    passwordInput.type = 'text';
+                    passwordInput.classList.add('input-field');
+                    passwordInput.value = password;
 
-            passwords.forEach(password => {
-                const passwordDiv = document.createElement('div');
-                passwordDiv.classList.add('password-item');
+                    const copyIcon = document.createElement('img');
+                    copyIcon.src = 'img/copy-icon.png';
+                    copyIcon.alt = 'Copy to clipboard';
+                    copyIcon.classList.add('copy-icon');
+                    copyIcon.addEventListener('click', () => {
+                        copyToClipboard(passwordInput);
+                    });
 
-                const passwordInput = document.createElement('input');
-                passwordInput.setAttribute('id', 'pass');
-                passwordInput.type = 'text';
-                passwordInput.classList.add('input-field');
-                passwordInput.value = password;
+                    const saveIcon = document.createElement('img');
+                    saveIcon.src = 'img/save-icon.png';
+                    saveIcon.alt = 'Save password';
+                    saveIcon.classList.add('save-icon');
+                    saveIcon.addEventListener('click', () => {
+                        savePassword(currentWebAddress, 'asd', password);
+                    });
 
-                const copyIcon = document.createElement('img');
-                copyIcon.src = 'img/copy-icon.png';
-                copyIcon.alt = 'Copy to clipboard';
-                copyIcon.classList.add('copy-icon');
-                copyIcon.addEventListener('click', () => {
-                    copyToClipboard(passwordInput);
+                    passwordDiv.appendChild(passwordInput);
+                    passwordDiv.appendChild(copyIcon);
+                    passwordDiv.appendChild(saveIcon);
+
+                    passwordContent.appendChild(passwordDiv);
                 });
-
-                const saveIcon = document.createElement('img');
-                saveIcon.src = 'img/save-icon.png';
-                saveIcon.alt = 'Save password';
-                saveIcon.classList.add('save-icon');
-                saveIcon.addEventListener('click', () => {
-                    //savePassword();
-                });
-
-                passwordDiv.appendChild(passwordInput);
-                passwordDiv.appendChild(copyIcon);
-                passwordDiv.appendChild(saveIcon);
-
-                passwordContent.appendChild(passwordDiv);
-            });
+            }
         }
     });
 });
