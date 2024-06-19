@@ -4,8 +4,7 @@
   "description": "Password Generator extension to create strong passwords",
   "version": "1.0",
   "permissions": [
-    "tabs",
-    "activeTab"
+    "tabs"
   ],
   "content_scripts": [
     {

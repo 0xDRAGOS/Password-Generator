@@ -2,9 +2,11 @@ import { generatePassword } from "./utils/generatePassword.js";
 import { copyToClipboard } from "./utils/copyToClipboard.js";
 import { deleteAllPasswords, displayPasswords, savePassword } from "./utils/passwordUtils.js";
 
+// funcție care se execută când documentul HTML este complet încărcat
 document.addEventListener('DOMContentLoaded', () => {
 
-    //header
+    // header
+    // elemente pentru navigarea între pagini
     const homeIcon = document.getElementById('home-icon');
     const historyIcon = document.getElementById('history-icon');
     const settingsIcon = document.getElementById('settings-icon');
@@ -13,11 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const historyPage = document.getElementById('history-page');
     const settingsPage = document.getElementById('settings-page');
 
+    // setează pagina curentă și ascunde celelalte pagini
     let currentPage = homePage;
     historyPage.style.display = 'none';
     settingsPage.style.display = 'none';
 
-    //home page
+    // home page
+    // gestionare click pe iconița de Home pentru afișarea paginii Home
     homeIcon.addEventListener('click', () => {
         currentPage.style.display = 'none';
         homePage.style.display = 'block';
@@ -29,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const length = document.getElementById('length');
     const rangeValue = document.getElementById('rangeValue');
 
+    // actualizează valoarea afișată pentru lungimea parolei când utilizatorul schimbă slider-ul
     length.addEventListener('input', () => {
         rangeValue.value = length.value;
     });
@@ -37,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         length.value = rangeValue.value;
     });
 
-    //history page
+    // history page
+    // gestionare click pe iconița de History pentru afișarea paginii History și afișarea parolelor salvate
     historyIcon.addEventListener('click', () => {
         currentPage.style.display = 'none';
         historyPage.style.display = 'block';
@@ -47,11 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const deleteAllPasswordsButton = document.getElementById('deleteAllPasswordsButton');
+     // gestionare click pe butonul de ștergere a tuturor parolelor salvate
     deleteAllPasswordsButton.addEventListener('click', () => {
         deleteAllPasswords();
     });
 
-    //settings page
+    // settings page
+    // gestionare click pe iconița de Settings pentru afișarea paginii Settings
     settingsIcon.addEventListener('click', () => {
         currentPage.style.display = 'none';
         settingsPage.style.display = 'block';
@@ -72,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxSpecialValue = document.getElementById('max-special-range-value-input');
     const separatorInterval = document.getElementById('separator-interval');
 
+    // funcție pentru actualizarea lungimii minime a parolei
     const updateMinPasswordLength = () => {
         let newMinLength = parseInt(minAlphanumericValue.value) + parseInt(minNumericValue.value) + parseInt(minSpecialValue.value);
         newMinLength += Math.ceil(newMinLength / separatorInterval.value);
@@ -80,17 +89,19 @@ document.addEventListener('DOMContentLoaded', () => {
         rangeValue.min = newMinLength;
     }
 
+    // funcție pentru actualizarea lungimii maxime a parolei
     const updateMaxPasswordLength = () => {
         let newMaxLength = parseInt(maxAlphanumericValue.value) + parseInt(maxNumericValue.value) + parseInt(maxSpecialValue.value);
         newMaxLength += Math.ceil(newMaxLength / separatorInterval.value);
 
         length.max = newMaxLength;
-        length.max = newMaxLength;
+        rangeValue.max = newMaxLength;
     }
 
     updateMinPasswordLength();
     updateMaxPasswordLength();
 
+    // funcție pentru validarea și resetarea valorilor intervalelor minime și maxime
     const validateAndResetRanges = () => {
         if (parseInt(minAlphanumericValue.value) > parseInt(maxAlphanumericValue.value)) {
             minAlphanumericValue.value = maxAlphanumericValue.value;
@@ -120,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // adăugare event listener pentru schimbarea valorilor intervalelor și actualizarea lungimii parolei
     minAlphanumericRange.addEventListener('input', () => {
         minAlphanumericValue.value = minAlphanumericRange.value;
         updateMinPasswordLength();
@@ -196,16 +208,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPasswords = document.getElementById('password-count-input');
 
     var currentWebAddress = '';
-    chrome.tabs.query({ active: true, currentWindow: true}, function(tabs) {
-        let url = new URL(tabs[0].url);
-        currentWebAddress = url.origin;
+    // obține adresa web curentă din tabul activ al browserului folosind API-ul tabs 
+    chrome.tabs.query({ active: true, currentWindow: true}, function(tabs) { // dorim doar tabul activ în fereastra curentă
+        let url = new URL(tabs[0].url); // se crează un obiect URL din URL-ul primului element din array-ul tabs
+        currentWebAddress = url.origin; // salvează adresa de bază
     });
 
+     // gestionare click pe butonul de generare parolă
     generatePasswordButton.addEventListener('click', () => {
         const inputValue = input.value.trim();
         const generateMessage = document.getElementById('generate-message');
         generateMessage.innerHTML = '';
 
+        // verifică dacă inputul este gol
         if (!inputValue) {
             generateMessage.textContent = 'Input is empty.';
             setTimeout(() => {
@@ -218,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (passwordContent) {
                 passwordContent.innerHTML = '';
 
+                // afișează fiecare parolă generată într-un element div și adaugă funcționalități de copiere și salvare
                 passwords.forEach(password => {
                     const passwordDiv = document.createElement('div');
                     passwordDiv.classList.add('password-item');
@@ -241,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     saveIcon.alt = 'Save password';
                     saveIcon.classList.add('save-icon');
                     saveIcon.addEventListener('click', () => {
-                        savePassword(currentWebAddress, 'asd', password);
+                        savePassword(currentWebAddress, inputValue, password);
                     });
 
                     passwordDiv.appendChild(passwordInput);
